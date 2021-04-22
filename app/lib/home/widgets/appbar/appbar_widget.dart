@@ -1,3 +1,4 @@
+
 import 'package:app/core/app_gradients.dart';
 import 'package:app/core/app_text_styles.dart';
 import 'package:app/home/widgets/score_card/score_card_widget.dart';
@@ -8,14 +9,14 @@ class AppBarWidGet extends PreferredSize {
     preferredSize: Size.fromHeight(250),
     child: Container(
       height: 250,
-      decoration: BoxDecoration(gradient: AppGradients.linear), // pega a cor roxa de funco e coloca no card
-      child: Stack(
-        children: [      
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.1),
+        child: Stack(
+          children: [      
+            Container(
               height: 161,
               padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(gradient: AppGradients.linear),
               width: double.maxFinite,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,18 +37,18 @@ class AppBarWidGet extends PreferredSize {
                       borderRadius: BorderRadius.circular(10), // deixar a borda arredondada
                       image: DecorationImage(
                         image: NetworkImage(
-                          "https://avatars.githubusercontent.com/u/60898489?v=4"
+                          'https://avatars.githubusercontent.com/u/60898489?v=4'
                         ),
                       ),
                     ),
                   ),],
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment(0.0,1.0),
-            child: ScoreCardWidGet()) // widget feito em outro card alinhado ao centro
-        ],
+            Align(
+              alignment: Alignment(0.0,1.0),
+              child: ScoreCardWidGet()) // widget feito em outro card alinhado ao centro
+          ],
+        ),
       ),
     ),
   );

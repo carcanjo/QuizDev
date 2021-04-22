@@ -3,8 +3,8 @@ import 'package:app/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ChartWidget extends StatelessWidget {
-  
   ChartWidget({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Container( 
