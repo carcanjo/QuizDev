@@ -2,10 +2,14 @@
 import 'package:app/core/app_gradients.dart';
 import 'package:app/core/app_text_styles.dart';
 import 'package:app/home/widgets/score_card/score_card_widget.dart';
+import 'package:app/shared/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidGet extends PreferredSize {
-  AppBarWidGet() : super(
+  //vou passar um user para essa classe para redenrizar dinamicamente
+  final UserModel user;
+
+  AppBarWidGet({ required this.user }) : super(
     preferredSize: Size.fromHeight(250),
     child: Container(
       height: 250,
@@ -26,7 +30,7 @@ class AppBarWidGet extends PreferredSize {
                     style: AppTextStyles.title,
                     children: [
                       TextSpan(
-                        text: "Cleiton Arcanjo",
+                        text:user.name,
                         style: AppTextStyles.titleBold
                       ),
                     ])),
@@ -36,9 +40,7 @@ class AppBarWidGet extends PreferredSize {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10), // deixar a borda arredondada
                       image: DecorationImage(
-                        image: NetworkImage(
-                          'https://avatars.githubusercontent.com/u/60898489?v=4'
-                        ),
+                        image: NetworkImage(user.photoUrl),
                       ),
                     ),
                   ),],

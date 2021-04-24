@@ -20,8 +20,8 @@ const QuizWidget({Key? key , required this.title}) : super(key: key);
           ),
           AwnserWidget(isRight: true ,isSelected: true, title: 'Possibilita criação de aplicativos compilados nativamente'),
           AwnserWidget(title: 'Possibilita criação de aplicativos compilados nativamente'),
-          AwnserWidget(title: 'Possibilita criação de aplicativos compilados nativamente'),
           AwnserWidget(isRight: true ,isSelected: true, title: 'Possibilita criação de aplicativos compilados nativamente'),
+          AwnserWidget(title: 'Possibilita criação de aplicativos compilados nativamente'),
         ],
       ),
     );
