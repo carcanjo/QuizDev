@@ -1,5 +1,9 @@
 //CurrentPage
 
+import 'package:flutter/foundation.dart';
+
 class ChallengeController{
-  var currentPage = 0;
+  final currentPAgeNoetifier = ValueNotifier<int>(1);
+  int get currentPage => currentPAgeNoetifier.value;
+  set currentPage(int value) => currentPAgeNoetifier.value = value;
 }

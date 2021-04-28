@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
-
-const ChallengePage({Key? key, required this.questions}) : super(key: key);
+  const ChallengePage({Key? key, required this.questions }) : super(key: key);
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -16,8 +15,27 @@ const ChallengePage({Key? key, required this.questions}) : super(key: key);
 
 class _ChallengePageState extends State<ChallengePage> {
 final controller = ChallengeController();
+final pageController = PageController();
 
   @override
+    //altero o status no controller
+  void initState(){
+    //toda vez que tiver alguma notificação vou chamar o PageController (Nativo do Flutter) adicioanr uma lista ao meu controller
+    //coloco o +1 para resolver o inicio de zero 
+    pageController.addListener(() {
+      controller.currentPage = pageController.page!.toInt() + 1;
+    });
+    super.initState();
+  }
+
+  void nextPage(){
+    if (controller.currentPage < widget.questions.length)
+      pageController.nextPage(
+          duration: Duration(milliseconds: 100),
+            curve: Curves.linear, // para trocar de pagina coloco a animação
+      );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -31,30 +49,54 @@ final controller = ChallengeController();
                 Navigator.pop(context);
                 //posso fechar a pagina usando o Navigator.pop
               }),
-              //BackButton(), // ou usando BackButton para voltar na navegação
-              QuestionIndicatorWidget(
-                currentPage: controller.currentPage,
-                lenght: widget.questions.length,
+              ValueListenableBuilder<int>
+              //passo oque ele vai escutar no caso o controller >> contexto da pagina >> tipo
+              (valueListenable: controller.currentPAgeNoetifier,
+               builder: (context,value,_) => 
+                QuestionIndicatorWidget(
+                   currentPage: value,
+                    lenght: widget.questions.length,
+                ),
               ),
+              //BackButton(), // ou usando BackButton para voltar na navegação
             ],
           ),
         ),
       ),
-      body: QuizWidget(
-        questionModel: widget.questions[0],
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(), // essa propriedade falo que não quero que aconteça o scroll vou fazer esse scroll usando o botão pular
+
+        controller: pageController, //PageView aceita um controller 
+        //uso PageView para acessar todas as listas nesse caso de perguntas efeito de passar pro lado
+        children: widget.questions.map((e) => QuizWidget(questionModel: e, onChange:nextPage )).toList(),
+        
       ),
       bottomNavigationBar: SafeArea(
         bottom: true,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround, // coloco o espaço entre os botões
-            children: [
-              Expanded(child: NextButtinWidget.white(label: 'Fácil', onTap: () {})),
-              SizedBox(width: 10),
-              Expanded(child: NextButtinWidget.green(label: 'Confirmar', onTap: () {} )),
-            ],
-          ),
+          padding: const EdgeInsets.all(20),
+          child:               ValueListenableBuilder<int>(
+                valueListenable: controller.currentPAgeNoetifier,
+                builder: (context,value,_) => 
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      if(value < widget.questions.length)
+                        Expanded(child: NextButtinWidget.white(label: 'Pular', 
+                          onTap: nextPage,
+                        )), 
+
+                      if(value == widget.questions.length)                     
+                      Expanded(
+                        child: NextButtinWidget.green(
+                          label: 'Confirmar',
+                           onTap: () {
+                             Navigator.pop(context);
+                           }
+                        )),
+                      ],
+                    ),     
+              ),
         ),
       ),
     );

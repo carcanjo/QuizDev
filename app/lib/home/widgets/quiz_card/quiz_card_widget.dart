@@ -23,52 +23,55 @@ class QuizCardWidget extends StatelessWidget {
     return GestureDetector(
         onTap: onTap, // GestureDetector detecta a ação na tela
         child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.fromBorderSide(BorderSide(
-              color: AppColors.border)),
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 40,
-                width: 40,
-                child: Image.asset(AppImages.blocks),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              Text(
-                title,
-                 style: AppTextStyles.heading15,
-              ),
-              SizedBox(
-                height: 24, //espeço entre os cards
-              ),
-              Row(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.fromBorderSide(BorderSide(
+                color: AppColors.border)),
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      completed,
-                       style: AppTextStyles.body11
-                    ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    child: Image.asset(AppImages.blocks),
                   ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    title,
+                     style: AppTextStyles.heading15,
+                  ),
+                  SizedBox(
+                    height: 24, //espeço entre os cards
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          completed,
+                           style: AppTextStyles.body11
+                        ),
+                      ),
 
-                Expanded(
-                    flex: 4,
-                    child: ProgressIndicatorWidget(
-                      value: percent,
-                    ),
-                  ),
-            ],
+                    Expanded(
+                        flex: 4,
+                        child: ProgressIndicatorWidget(
+                          value: percent,
+                        ),
+                      ),
+                ],
+              ),
+          ]),
+            )
           ),
-        ])
         ),
-      ),
     );
   }
 }
