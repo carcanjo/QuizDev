@@ -2,12 +2,14 @@ import 'package:app/challenge/challenge_controller.dart';
 import 'package:app/challenge/next_button/next_button_widget.dart';
 import 'package:app/challenge/quiz/quiz_widget.dart';
 import 'package:app/home/widgets/question_indicator/question_indicator.dart';
+import 'package:app/result/result_page.dart';
 import 'package:app/shared/models/question_model.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
-  const ChallengePage({Key? key, required this.questions }) : super(key: key);
+  final String title;
+  const ChallengePage({Key? key, required this.questions, required this.title }) : super(key: key);
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -91,7 +93,11 @@ final pageController = PageController();
                         child: NextButtinWidget.green(
                           label: 'Confirmar',
                            onTap: () {
-                             Navigator.pop(context);
+                             //configuro a rota que vai ser chamada após o click
+                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  ResultPage(
+                               title: widget.title,
+                               lenght: widget.questions.length
+                             )));
                            }
                         )),
                       ],
