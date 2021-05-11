@@ -38,6 +38,13 @@ final pageController = PageController();
       );
   }
 
+  void onSelected(bool value ){
+    if(value){
+      controller.qtdAnwserRight++;
+    }
+    nextPage();
+  }  
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -70,8 +77,10 @@ final pageController = PageController();
 
         controller: pageController, //PageView aceita um controller 
         //uso PageView para acessar todas as listas nesse caso de perguntas efeito de passar pro lado
-        children: widget.questions.map((e) => QuizWidget(questionModel: e, onChange:nextPage )).toList(),
-        
+        children: widget.questions
+          .map((e) => QuizWidget(
+            questionModel: e,
+            onSelected: onSelected, )).toList(), 
       ),
       bottomNavigationBar: SafeArea(
         bottom: true,
@@ -95,6 +104,7 @@ final pageController = PageController();
                            onTap: () {
                              //configuro a rota que vai ser chamada após o click
                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  ResultPage(
+                               result: controller.qtdAnwserRight,
                                title: widget.title,
                                lenght: widget.questions.length
                              )));

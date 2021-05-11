@@ -48,7 +48,7 @@ class AppBarWidGet extends PreferredSize {
             ),
             Align(
               alignment: Alignment(0.0,1.0),
-              child: ScoreCardWidGet()) // widget feito em outro card alinhado ao centro
+              child: ScoreCardWidGet(percent: user.score/100)) // widget feito em outro card alinhado ao centro
           ],
         ),
       ),

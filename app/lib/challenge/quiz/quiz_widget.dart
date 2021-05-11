@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class QuizWidget extends StatefulWidget {
   final QuestionModel questionModel;
-  final VoidCallback onChange;
+  final ValueChanged<bool> onSelected;
 
-const QuizWidget({Key? key , required this.questionModel , required this.onChange }) : super(key: key);
+const QuizWidget({Key? key , required this.questionModel , required this.onSelected }) : super(key: key);
 
   @override
   _QuizWidgetState createState() => _QuizWidgetState();
@@ -38,11 +38,11 @@ class _QuizWidgetState extends State<QuizWidget> {
              awnserModel: awsers(i),
              disabled: indexSelected != -1,
              isSelected: indexSelected == i,
-             onTap: (){
+             onTap: (value){
                indexSelected = i;
                setState(() {});
                //coloco um tempo de tres segundos antes de executar a troca de página
-               Future.delayed(Duration(seconds: 1)).then((value) =>  widget.onChange());
+               Future.delayed(Duration(seconds: 1)).then((_) =>  widget.onSelected(value));
              },
           ),
         ],

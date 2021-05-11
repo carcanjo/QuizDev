@@ -2,12 +2,14 @@ import 'package:app/challenge/next_button/next_button_widget.dart';
 import 'package:app/core/app_images.dart';
 import 'package:app/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ResultPage extends StatelessWidget {
   final String title;
   final int lenght;
+  final int result;
 
-  const ResultPage({Key? key, required this.title, required this.lenght }) : super(key: key);
+  const ResultPage({Key? key, required this.title, required this.lenght, required this.result }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     //colocar o text dentro de uma coluna pois vou add varios itens 
@@ -37,7 +39,7 @@ class ResultPage extends StatelessWidget {
                     style: AppTextStyles.body,
                     children: [
                       TextSpan( text: "\n $title",style: AppTextStyles.bodyBold,),
-                      TextSpan( text: "\ncom seis de $lenght acertos", style: AppTextStyles.body,),
+                      TextSpan( text: "\ncom $result de $lenght acertos", style: AppTextStyles.body,),
 
                     ]),
                     textAlign: TextAlign.center,
@@ -50,7 +52,9 @@ class ResultPage extends StatelessWidget {
                   children: [
                     Expanded(child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 68),
-                      child: NextButtinWidget.purple(label: "Compartilhar", onTap: (){}),
+                      child: NextButtinWidget.purple(label: "Compartilhar", onTap: (){
+                        Share.share('check out my website https://example.com');
+                      }),
                     )),
                   ],
                 ),
